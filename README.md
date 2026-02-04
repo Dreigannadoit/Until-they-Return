@@ -10,6 +10,7 @@
 
 - **Genre**: Top-down base defense, monster survival
 - **Core Mechanics**:
+- 
   - Defend your base from escalating monster waves
   - Upgrade weapons and skills
   - Repair and reinforce your defenses
