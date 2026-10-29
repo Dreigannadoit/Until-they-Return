@@ -52,32 +52,112 @@
 
 ## 🧱 Built With
 
-- **Vite + React** — fast frontend setup
-- **JavaScript / JSX** — for game logic and rendering
-- **Node / SQL** — for player data, progression tracking, etc.
+- **Frontend:** Vite + React 19, React Router, Framer Motion, Axios
+- **Backend:** Spring Boot 3.4 (Java 17), Spring Data JPA, JWT authentication
+- **Database:** PostgreSQL
 
 ---
 
 ## 🚀 Getting Started
 
-To run the game locally:
+The project has two parts: `frontend/` (the game) and `backend/` (the API for accounts and player data).
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 18+
+- [Java JDK](https://adoptium.net/) 17+
+- [PostgreSQL](https://www.postgresql.org/download/) (default port `5432`)
+
+### 1. Clone the repository
 
 ```bash
-# Clone the repository
 git clone https://github.com/Dreigannadoit/the_fortress_frontend.git
-
-# Navigate into the project directory
 cd the_fortress_frontend
+```
 
-# Install dependencies
+### 2. Create the database
+
+Create an empty PostgreSQL database named `utr`. Tables are created automatically on first run.
+
+```bash
+psql -U postgres -c "CREATE DATABASE utr;"
+```
+
+> **Windows:** if `psql` isn't recognized, use the full path (e.g. `"C:\Program Files\PostgreSQL\17\bin\psql.exe"`) or create the database from **pgAdmin** (right-click *Databases* → *Create* → *Database*).
+
+### 3. Configure the backend
+
+Edit `backend/.env` to match your setup:
+
+```env
+DATASOURCE_URL=jdbc:postgresql://localhost:5432/utr
+DATASOURCE_USER=postgres
+DATASOURCE_PASSWORD=your_postgres_password
+SERVER_PORT=6969
+
+FRONTEND_URL_ONE=http://localhost:5173
+FRONTEND_URL_TWO=http://127.0.0.1:5173
+# ...additional allowed frontend origins (CORS)
+```
+
+> If your PostgreSQL runs on a different port (e.g. `5433` when multiple versions are installed), change it in `DATASOURCE_URL`.
+
+### 4. Run the backend
+
+Spring Boot does **not** read `.env` files on its own, so load the variables into your terminal first. The API runs at `http://localhost:6969`.
+
+**Git Bash / macOS / Linux**
+
+```bash
+cd backend
+set -a; source .env; set +a
+./mvnw spring-boot:run
+```
+
+**PowerShell**
+
+```powershell
+cd backend
+Get-Content .env | ForEach-Object {
+  if ($_ -match '^\s*([^#=]+)=(.*)$') { [Environment]::SetEnvironmentVariable($matches[1].Trim(), $matches[2].Trim(), 'Process') }
+}
+.\mvnw.cmd spring-boot:run
+```
+
+The backend is ready when you see `Started GameApiApplication`.
+
+### 5. Run the frontend
+
+In a second terminal:
+
+```bash
+cd frontend
 npm install
-
-# Start development server
 npm run dev
 ```
 
+Open **http://localhost:5173**. The frontend reads the API address from `frontend/.env`:
 
-Credits
+```env
+VITE_API_BASE_URL=http://localhost:6969/api
+```
+
+### Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| `Failed to bind properties under 'server.port'` / `${SERVER_PORT}` | The `.env` variables weren't loaded. Run the commands in step 4 in the **same terminal** as `mvnw`. |
+| `password authentication failed` | `DATASOURCE_PASSWORD` doesn't match your PostgreSQL password. |
+| `database "utr" does not exist` | Create the database (step 2). |
+| CORS errors in the browser | Run the frontend on port `5173`, `42069`, or `3000`, or add your origin to `backend/.env`. |
+| `psql` not recognized (Windows) | Use the full path to `psql.exe` or pgAdmin (see step 2). |
+| Port already in use | Change `SERVER_PORT` in `backend/.env` and update `VITE_API_BASE_URL` in `frontend/.env` to match. |
+
+> Only want to look at the UI? `npm run dev` in `frontend/` works on its own, but anything needing the API (such as login) won't work without the backend.
+
+---
+
+## Credits
 
 Music
 
@@ -95,5 +175,3 @@ Graphics
 pixel-boy - Ninja Adventure - Asset Pack - https://pixel-boy.itch.io/ninja-adventure-asset-pack
 
 Sideshop - faxdoc - https://www.deviantart.com/faxdoc/art/Sideshop-566561669
-
-
