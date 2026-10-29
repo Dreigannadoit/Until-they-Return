@@ -50,6 +50,58 @@
 
 ---
 
+## 📸 Screenshots
+
+### Login screen
+
+![Login screen](documents/login.png)
+
+*Players sign in with a username and password. New players can register from the link below the form. Authentication is handled by the Spring Boot API using JWT.*
+
+### Main menu
+
+![Main menu](documents/main-menu.png)
+
+*The home screen after logging in. It shows the player's name and money, with options to start the game, visit the store, customise the character, view the credits, log out or delete the account.*
+
+### Gameplay: defending the fortress
+
+![Gameplay: defending the fortress](documents/gameplay-slingshot.png)
+
+*Mid-wave with the starting Slingshot. Slimes and a red Oni close in on the wall while the HUD shows player health, the round timer, currency, equipped weapon with ammo, passive skills along the top, and the wall's durability at the bottom.*
+
+### Gameplay: Wizard Wand and Attack Orbs
+
+![Gameplay: Wizard Wand and Attack Orbs](documents/gameplay-wizard-wand.png)
+
+*A later run with the Wizard Wand equipped. Cyan Attack Orbs circle the player and hit nearby enemies automatically.*
+
+### Store: weapons
+
+![Store: weapons](documents/store-weapons.png)
+
+*Currency earned in-game is spent in the store. The Weapons tab lists the free Slingshot (owned), the Wizard Wand (wide spread, high damage at close range) and the Rock Spell (rapid fire, moderate damage). Other tabs cover Turrets, Orbs, Skills and Ultimates.*
+
+### Store: orbs
+
+![Store: orbs](documents/store-orbs.png)
+
+*The Orbs tab offers the Attack Orb, which attacks nearby enemies.*
+
+### Backend: startup
+
+![Backend: startup](documents/api-startup.png)
+
+*The Spring Boot API (v3.4.5) starting up from the terminal.*
+
+### Backend: running
+
+![Backend: running](documents/api-running.png)
+
+*The API started successfully on port 6969, connected to PostgreSQL, with the initial weapons and game items already seeded.*
+
+---
+
 ## 🧱 Built With
 
 - **Frontend:** Vite + React 19, React Router, Framer Motion, Axios
